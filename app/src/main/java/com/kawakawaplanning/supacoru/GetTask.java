@@ -35,6 +35,8 @@ public class GetTask extends AsyncTask {
         super.onPreExecute();
         listView.setAdapter(null);
         getDataBuffer = new StringBuffer();
+
+        adapter.clear();
     }
 
     @Override
@@ -55,7 +57,7 @@ public class GetTask extends AsyncTask {
                     }
                     reader.close();
                     getLine = getDataBuffer.toString().split("\n");
-
+                    MainActivity.max = getLine.length;
                     Log.v("KP", getLine.length +"");
                 }
             }
@@ -79,6 +81,7 @@ public class GetTask extends AsyncTask {
         }
 
         listView.setAdapter(adapter);
+        MainActivity.mSwipeRefreshLayout.setRefreshing(false);
 
     }
 }
