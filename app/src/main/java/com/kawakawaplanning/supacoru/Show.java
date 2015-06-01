@@ -2,10 +2,8 @@ package com.kawakawaplanning.supacoru;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,53 +21,59 @@ public class Show extends ActionBarActivity {
     int position;
     Context context;
     ProgressDialog progressDialog;
+    static public PAdapter adap;
+    ViewPager vp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        context = this;
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("読み込み中...");
-        progressDialog.setMessage("画像を読み込み中です。しばらくお待ち下さい。");
-        progressDialog.setIndeterminate(false);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCancelable(false);
-
-
-        Intent intent = getIntent();
-        position = intent.getIntExtra("pos", 0);
-
-        items = MainActivity.adapter.getItem(position);
-
-        getSupportActionBar().setTitle(items.title);
-
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo nInfo = cm.getActiveNetworkInfo();
-
-        if (nInfo != null) {
-            /* NetWork接続可 */
-            UrlImageView imageView = (UrlImageView) findViewById(R.id.showImg);
-            imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
-                @Override
-                public void onStart(String url) {
-                    progressDialog.show();
-                }
-
-                @Override
-                public void onComplete(String url) {
-                    progressDialog.dismiss();
-                }
-
-            });
-
-        } else {
-            /* NetWork接続不可 */
-            Toast.makeText(this, "No Network Connection!", Toast.LENGTH_LONG)
-                    .show();
-        }
+        vp = (ViewPager)findViewById(R.id.mypager);//定義
+        adap = new PAdapter(this.getSupportFragmentManager());
+        vp.setAdapter(adap);//アダプタ入れる
+//        context = this;
+//
+//        progressDialog = new ProgressDialog(this);
+//        progressDialog.setTitle("読み込み中...");
+//        progressDialog.setMessage("画像を読み込み中です。しばらくお待ち下さい。");
+//        progressDialog.setIndeterminate(false);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progressDialog.setCancelable(false);
+//
+//
+//        Intent intent = getIntent();
+//        position = intent.getIntExtra("pos", 0);
+//
+//        items = MainActivity.adapter.getItem(position);
+//
+//        getSupportActionBar().setTitle(items.title);
+//
+//        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+//        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+//
+//        if (nInfo != null) {
+//            /* NetWork接続可 */
+//            UrlImageView imageView = (UrlImageView) findViewById(R.id.showImg);
+//            imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
+//                @Override
+//                public void onStart(String url) {
+//                    progressDialog.show();
+//                }
+//
+//                @Override
+//                public void onComplete(String url) {
+//                    progressDialog.dismiss();
+//                }
+//
+//            });
+//
+//        } else {
+//            /* NetWork接続不可 */
+//            Toast.makeText(this, "No Network Connection!", Toast.LENGTH_LONG)
+//                    .show();
+//        }
 
 
     }
