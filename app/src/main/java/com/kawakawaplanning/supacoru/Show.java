@@ -3,6 +3,8 @@ package com.kawakawaplanning.supacoru;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -44,18 +46,32 @@ public class Show extends ActionBarActivity {
 
         getSupportActionBar().setTitle(items.title);
 
-        UrlImageView imageView = (UrlImageView) findViewById(R.id.showImg);
-        imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
-            @Override
-            public void onStart(String url) {
-                progressDialog.show();
-            }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
 
-            @Override
-            public void onComplete(String url) {
-                progressDialog.dismiss();
-            }
-        });
+        if (nInfo != null) {
+            /* NetWork接続可 */
+            UrlImageView imageView = (UrlImageView) findViewById(R.id.showImg);
+            imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
+                @Override
+                public void onStart(String url) {
+                    progressDialog.show();
+                }
+
+                @Override
+                public void onComplete(String url) {
+                    progressDialog.dismiss();
+                }
+
+            });
+
+        } else {
+            /* NetWork接続不可 */
+            Toast.makeText(this, "No Network Connection!", Toast.LENGTH_LONG)
+                    .show();
+        }
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

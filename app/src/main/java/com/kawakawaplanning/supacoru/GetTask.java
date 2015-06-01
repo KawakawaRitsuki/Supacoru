@@ -1,5 +1,6 @@
 package com.kawakawaplanning.supacoru;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -9,9 +10,11 @@ import org.eclipse.egit.github.core.Gist;
 import org.eclipse.egit.github.core.service.GistService;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 /**
  * Created by KP on 15/05/31.
@@ -62,25 +65,34 @@ public class GetTask extends AsyncTask {
                 }
             }
 
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (UnknownHostException e){
+            return "networkerr";
+        }catch (IOException e){
+            return "networkerr";
         }
-
-        return null;
+        return "ok";
     }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
+        if (o.toString().equals("networkerr")){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder.setTitle("ネットワークエラー");
+            alertDialogBuilder.setMessage("ネットワークエラーが発生しました。インターネットの接続状態を確認して、再読み込み（上から下にスライド）してください。");
+            alertDialogBuilder.setPositiveButton("OK",null);
+            alertDialogBuilder.setCancelable(true);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else {
+            for (String str : getLine) {
+                String data[] = str.split(",");
+                adapter.add(new Item(data[0], data[1]));
+            }
 
-
-        for (String str : getLine){
-            String data[] = str.split(",");
-            adapter.add(new Item(data[0],data[1]));
+            listView.setAdapter(adapter);
         }
-
-        listView.setAdapter(adapter);
         MainActivity.mSwipeRefreshLayout.setRefreshing(false);
 
     }
