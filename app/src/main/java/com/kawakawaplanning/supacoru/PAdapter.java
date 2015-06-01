@@ -20,7 +20,7 @@ public class PAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         Item items = MainActivity.adapter.getItem(position);
-        return MainFragment.newInstance(items.url,position);
+        return MainFragment.newInstance(position);
 
     }
 

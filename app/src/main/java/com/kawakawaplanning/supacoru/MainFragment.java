@@ -16,17 +16,15 @@ import jp.sharakova.android.urlimageview.UrlImageView;
 
 public class MainFragment extends Fragment{
 
-    public String url;
     public int pos;
     ProgressDialog progressDialog;
     Item items;
 
     public MainFragment(){}
 
-    public static Fragment newInstance(String url,int pos) {
+    public static Fragment newInstance(int pos) {
+        
         MainFragment fragment = new MainFragment();
-
-        fragment.url = url;
         fragment.pos = pos;
 
         return fragment;
