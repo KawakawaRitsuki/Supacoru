@@ -2,6 +2,7 @@ package com.kawakawaplanning.supacoru;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -33,7 +34,13 @@ public class Show extends ActionBarActivity {
         vp = (ViewPager)findViewById(R.id.mypager);//定義
         adap = new PAdapter(this.getSupportFragmentManager());
         vp.setAdapter(adap);//アダプタ入れる
+
+        Intent intent = getIntent();
+        position = intent.getIntExtra("pos", 0);
+        vp.setCurrentItem(position);
+
 //        context = this;
+
 //
 //        progressDialog = new ProgressDialog(this);
 //        progressDialog.setTitle("読み込み中...");
