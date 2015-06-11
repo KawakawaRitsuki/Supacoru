@@ -1,10 +1,10 @@
 package com.kawakawaplanning.supacoru;
 
 
-import android.app.ProgressDialog;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,6 @@ import jp.sharakova.android.urlimageview.UrlImageView;
 public class MainFragment extends Fragment{
 
     public int pos;
-    ProgressDialog progressDialog;
     Item items;
     ProgressBar progressBar;
     UrlImageView imageView;
@@ -57,19 +56,32 @@ public class MainFragment extends Fragment{
 
         if (nInfo != null) {
             /* NetWork接続可 */
+            final Handler handler = new Handler();
 
-            imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
+            new Thread(new Runnable() {
                 @Override
-                public void onStart(String url) {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
+                public void run() {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageUrl(items.url + "?resize=516%2C729", new UrlImageView.OnImageLoadListener() {
+                                @Override
+                                public void onStart(String url) {
+                                    progressBar.setVisibility(View.VISIBLE);
+                                }
 
-                @Override
-                public void onComplete(String url) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
+                                @Override
+                                public void onComplete(String url) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
 
-            });
+                            });
+                        }
+                    });
+
+                }
+            }).start();
+
 
         } else {
             /* NetWork接続不可 */
@@ -82,23 +94,49 @@ public class MainFragment extends Fragment{
     @Override
     public void onPause() {
         super.onPause();
-        imageView.setImageBitmap(null);
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageView.setImageBitmap(null);
+                        imageView = null;
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
-            @Override
-            public void onStart(String url) {
-                progressBar.setVisibility(View.VISIBLE);
-            }
+        final Handler handler = new Handler();
 
+        new Thread(new Runnable() {
             @Override
-            public void onComplete(String url) {
-                progressBar.setVisibility(View.INVISIBLE);
-            }
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageView.setImageUrl(items.url, new UrlImageView.OnImageLoadListener() {
+                            @Override
+                            public void onStart(String url) {
+                                progressBar.setVisibility(View.VISIBLE);
+                            }
 
-        });
+                            @Override
+                            public void onComplete(String url) {
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+
+                        });
+                    }
+                });
+
+            }
+        }).start();
+
     }
 }

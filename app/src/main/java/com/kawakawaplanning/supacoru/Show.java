@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 /**
  * Created by KP on 15/05/31.
  */
-public class Show extends ActionBarActivity {
+public class Show extends ActionBarActivity {//表示用ViewPagerの親Activity
 
     int position;
     static public PAdapter adap;
@@ -35,9 +35,18 @@ public class Show extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        vp.setAdapter(null);
+        vp = null;
 
+        adap = null;
+        progressBar = null;
+    }
 
     public static ProgressBar getProgress(){
+
         return progressBar;
     }
 

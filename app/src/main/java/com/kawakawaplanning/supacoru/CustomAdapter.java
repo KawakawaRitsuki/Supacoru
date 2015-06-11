@@ -15,7 +15,7 @@ import jp.sharakova.android.urlimageview.UrlImageView;
 /**
  * Created by KP on 15/05/04.
  */
-public class CustomAdapter extends ArrayAdapter<Item> {
+public class CustomAdapter extends ArrayAdapter<Item> {//メイン画面List用Adapter
 
     LayoutInflater mInflater;
     int mResId;

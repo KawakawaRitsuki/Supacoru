@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
@@ -35,6 +36,8 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
 
 
         context = this;
+
+        Toast.makeText(this,this.getCacheDir().toString(),Toast.LENGTH_SHORT).show();
 
         adapter = new CustomAdapter(context,R.layout.card_item);
 

@@ -4,13 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.List;
-
 public class PAdapter extends FragmentPagerAdapter {
-
-    public static List<String> newsTitle;
-
-
 
     public PAdapter(FragmentManager fm) {
         super(fm);
@@ -19,7 +13,6 @@ public class PAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        Item items = MainActivity.adapter.getItem(position);
         return MainFragment.newInstance(position);
 
     }
