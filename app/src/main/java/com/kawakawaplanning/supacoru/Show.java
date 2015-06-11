@@ -35,16 +35,6 @@ public class Show extends ActionBarActivity {//表示用ViewPagerの親Activity
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        vp.setAdapter(null);
-        vp = null;
-
-        adap = null;
-        progressBar = null;
-    }
-
     public static ProgressBar getProgress(){
 
         return progressBar;
