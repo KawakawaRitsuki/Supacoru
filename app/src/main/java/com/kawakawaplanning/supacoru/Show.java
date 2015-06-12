@@ -1,4 +1,4 @@
-package com.kawakawaplanning.supacoru;
+package com.KawakawaPlanning.supacoru;
 
 import android.content.Intent;
 import android.os.Bundle;

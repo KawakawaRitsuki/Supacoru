@@ -1,4 +1,4 @@
-package com.kawakawaplanning.supacoru;
+package com.KawakawaPlanning.supacoru;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 
 public class MainActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
 
@@ -61,7 +60,7 @@ public class MainActivity extends ActionBarActivity implements SwipeRefreshLayou
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent=new Intent();
-                intent.setClassName("com.kawakawaplanning.supacoru", "com.kawakawaplanning.supacoru.Show");
+                intent.setClassName("com.KawakawaPlanning.supacoru", "com.KawakawaPlanning.supacoru.Show");
                 intent.putExtra("pos", position);
                 startActivity(intent);
             }

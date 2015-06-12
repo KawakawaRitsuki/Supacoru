@@ -1,4 +1,4 @@
-package com.kawakawaplanning.supacoru;
+package com.KawakawaPlanning.supacoru;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

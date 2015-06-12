@@ -5,11 +5,11 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.kawakawaplanning.supacoru"
+        applicationId "com.KawakawaPlanning.supacoru"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 14
+        versionName "4.0a"
     }
     buildTypes {
         release {

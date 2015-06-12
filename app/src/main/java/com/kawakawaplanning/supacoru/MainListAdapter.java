@@ -1,4 +1,4 @@
-package com.kawakawaplanning.supacoru;
+package com.KawakawaPlanning.supacoru;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
