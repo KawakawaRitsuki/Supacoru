@@ -15,14 +15,14 @@ import jp.sharakova.android.urlimageview.UrlImageView;
 /**
  * Created by KP on 15/05/04.
  */
-public class CustomAdapter extends ArrayAdapter<Item> {//メイン画面List用Adapter
+public class MainListAdapter extends ArrayAdapter<Item> {//メイン画面List用Adapter
 
     LayoutInflater mInflater;
     int mResId;
     int mAnimatedPosition = ListView.INVALID_POSITION;
     UrlImageView mImageView;
 
-    public CustomAdapter(Context context, int resource) {
+    public MainListAdapter(Context context, int resource) {
         super(context, 0);
         mResId = resource;
         mInflater = LayoutInflater.from(context);

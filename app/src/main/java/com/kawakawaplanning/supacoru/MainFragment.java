@@ -47,7 +47,6 @@ public class MainFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // 一気にページ繰るとOut of Memorｙでおちる
         progressBar.setVisibility(View.INVISIBLE);
         items = MainActivity.adapter.getItem(pos);
 
@@ -84,7 +83,6 @@ public class MainFragment extends Fragment{
 
 
         } else {
-            /* NetWork接続不可 */
             Toast.makeText(getActivity(), "No Network Connection!", Toast.LENGTH_LONG)
                     .show();
         }

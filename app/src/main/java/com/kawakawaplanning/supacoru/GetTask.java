@@ -16,18 +16,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-/**
- * Created by KP on 15/05/31.
- */
 public class GetTask extends AsyncTask {
 
     ListView listView;
     Context context;
     StringBuffer getDataBuffer;
     String[] getLine;
-    CustomAdapter adapter;
+    MainListAdapter adapter;
 
-    public GetTask(Context context,ListView listView,CustomAdapter adapter){
+    public GetTask(Context context,ListView listView,MainListAdapter adapter){
         this.context = context;
         this.listView = listView;
         this.adapter = adapter;
@@ -45,6 +42,16 @@ public class GetTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] params) {
 
+        /*
+
+            データ取得処理
+
+        - Githubのアカウント[kawakawaritsuki]のGistを一覧で取得
+        - さっき取得した一覧から、[Data.csv]というファイルを探す
+          - そのファイルのURLを取得
+          - CSVファイルを取得
+
+         */
         try {
             GistService service = new GistService();
             for (Gist gist : service.getGists("kawakawaritsuki")){
@@ -56,7 +63,8 @@ public class GetTask extends AsyncTask {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                     String str;
                     while ((str = reader.readLine()) != null) {
-                        getDataBuffer.append(str + "\n");
+                        getDataBuffer.append(str);
+                        getDataBuffer.append("\n");
                     }
                     reader.close();
                     getLine = getDataBuffer.toString().split("\n");
@@ -66,9 +74,9 @@ public class GetTask extends AsyncTask {
             }
 
         }catch (UnknownHostException e){
-            return "networkerr";
+            return "networkErr";
         }catch (IOException e){
-            return "networkerr";
+            return "networkErr";
         }
         return "ok";
     }
@@ -77,7 +85,8 @@ public class GetTask extends AsyncTask {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
 
-        if (o.toString().equals("networkerr")){
+        if (o.toString().equals("networkErr")){
+            //エラー時処理
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             alertDialogBuilder.setTitle("ネットワークエラー");
             alertDialogBuilder.setMessage("ネットワークエラーが発生しました。インターネットの接続状態を確認して、再読み込み（上から下にスライド）してください。");
@@ -86,6 +95,14 @@ public class GetTask extends AsyncTask {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }else {
+            /*
+
+                正常時処理
+
+            - データを抜き出して、アダプタに入れる
+            - ListVieとして表示
+
+             */
             for (String str : getLine) {
                 String data[] = str.split(",");
                 adapter.add(new Item(data[0], data[1]));

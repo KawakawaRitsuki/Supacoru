@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
 import android.widget.ProgressBar;
 
 /**
@@ -19,10 +18,15 @@ public class Show extends ActionBarActivity {//表示用ViewPagerの親Activity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
 
+        init();
+
+    }
+
+    public void init(){
         progressBar = (ProgressBar) findViewById(R.id.progress);
         vp = (ViewPager) findViewById(R.id.mypager);//定義
         adap = new PAdapter(this.getSupportFragmentManager());
@@ -32,13 +36,9 @@ public class Show extends ActionBarActivity {//表示用ViewPagerの親Activity
         Intent intent = getIntent();
         position = intent.getIntExtra("pos", 0);
         vp.setCurrentItem(position);
-
     }
 
     public static ProgressBar getProgress(){
-
         return progressBar;
     }
-
 }
-

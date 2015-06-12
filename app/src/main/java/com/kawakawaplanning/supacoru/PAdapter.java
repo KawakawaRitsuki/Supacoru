@@ -19,9 +19,7 @@ public class PAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-
         return MainActivity.max;
-
     }
 
     @Override
