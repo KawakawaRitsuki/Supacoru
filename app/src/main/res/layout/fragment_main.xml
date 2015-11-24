@@ -3,16 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.KawakawaPlanning.supacoru.ZoomView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/zoomView">
+        android:layout_height="match_parent">
 
-        <jp.sharakova.android.urlimageview.UrlImageView
+        <com.KawakawaPlanning.supacoru.ZoomView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/showImg"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/zoomView">
 
-    </com.KawakawaPlanning.supacoru.ZoomView>
+            <jp.sharakova.android.urlimageview.UrlImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/showImg"
+                android:layout_gravity="center_horizontal" />
+
+        </com.KawakawaPlanning.supacoru.ZoomView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </LinearLayout>

@@ -4,8 +4,6 @@ package com.KawakawaPlanning.supacoru;
  * Created by KP on 15/05/04.
  */
 public class Item {
-
-
     public String title;
     public String url;
 

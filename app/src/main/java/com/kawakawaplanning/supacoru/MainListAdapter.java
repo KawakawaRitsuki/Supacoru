@@ -15,7 +15,8 @@ import jp.sharakova.android.urlimageview.UrlImageView;
 /**
  * Created by KP on 15/05/04.
  */
-public class MainListAdapter extends ArrayAdapter<Item> {//メイン画面List用Adapter
+public class MainListAdapter extends ArrayAdapter<Item>{//メイン画面List用Adapter
+
 
     LayoutInflater mInflater;
     int mResId;
@@ -52,6 +53,5 @@ public class MainListAdapter extends ArrayAdapter<Item> {//メイン画面List�
 
         return convertView;
     }
-
 
 }

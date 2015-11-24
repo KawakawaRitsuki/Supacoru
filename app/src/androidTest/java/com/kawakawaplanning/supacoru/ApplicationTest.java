@@ -1,4 +1,4 @@
-package com.kawakawaplanning.supacoru;
+package com.KawakawaPlanning.supacoru;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
